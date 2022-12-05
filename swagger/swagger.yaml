@@ -1,0 +1,52 @@
+swagger: "2.0"
+info:
+  description: Service to interact with subscriptions
+
+  title: Subscriptions service
+  version: 0.0.1
+consumes:
+  - application/json
+produces:
+  - application/json
+schemes:
+  - http
+basePath: /
+
+paths:
+  /subscriptions:
+    post:
+      summary: >
+        Create new subscription for user.
+        A user can have only one subscription
+      operationId: createSubscription
+      parameters:
+        - name: req
+          in: body
+          schema:
+            $ref: "#/definitions/CreateSubscriptionRequest"
+      responses:
+        201:
+          description: OK
+        409:
+          description: error
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: error
+          schema:
+            $ref: "#/definitions/Error"
+      
+definitions:
+  CreateSubscriptionRequest:
+    type: object
+    required:
+      - "userID"
+    properties: 
+      userID:
+        type: integer
+  
+  Error:
+    type: object
+    properties: 
+      message:
+        type: string
